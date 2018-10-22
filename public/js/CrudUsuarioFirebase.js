@@ -78,7 +78,7 @@ function table(nombre,cedula,celular,saldo,email)
 
 }
 //listado de Usuarios
-function listar_usuarios()
+function listar_usuarios()  
 {
   //console.log('si entra a esta funcion');
   var tarea=firebase.database().ref("usuario/");
