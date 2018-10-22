@@ -26,7 +26,7 @@ function arrayJSON(nombre,cedula,celular,email,contrasena,saldo)
         nombre:nombre,
         cedula:cedula,
         celular:celular,
-        email:email,
+        email:email,   
         contrasena:contrasena,
         saldo:saldo
  	};

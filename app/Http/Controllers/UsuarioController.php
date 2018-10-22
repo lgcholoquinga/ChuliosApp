@@ -11,7 +11,7 @@ class UsuarioController extends Controller
 
     public function create()
     {
-        return view("usuario.create");   
+        return view("usuario.create");
     }
 
     public function store(Request $request)
@@ -19,7 +19,7 @@ class UsuarioController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($id)   
     {
         //
     }

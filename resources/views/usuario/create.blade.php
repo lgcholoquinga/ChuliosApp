@@ -34,10 +34,10 @@
                  <thead>
                    <tr>
                      <th>Nombre</th>
-                     <th>Cedula</th>
+                     <th>Cedula</th>  
                      <th>Celular</th>
                      <th>Saldo</th>
-                     <th>E-mail</th>    
+                     <th>E-mail</th>
                    </tr>
                  </thead>
                  <tbody id="cargar_usuarios"></tbody>
