@@ -8,6 +8,7 @@ storageBucket: "chulios-a0c98.appspot.com",
 messagingSenderId: "832011813382"
 };
 firebase.initializeApp(config);
+var storage=firebase.storage();
 //Esta funcion me permite obtener los ids de los inputs
 function getID(id)
 {
@@ -19,14 +20,14 @@ function limpiarcajas(id,result)
   return document.getElementById(id).value=result;
 }
 //creando el JSON de los datos
-function arrayJSON(nombre,cedula,celular,email,contrasena,saldo)
+function arrayJSON(nombre,cedula,celular,email,contrasena,saldo,foto)
 {
   var data ={
 
         nombre:nombre,
         cedula:cedula,
         celular:celular,
-        email:email,   
+        email:email,
         contrasena:contrasena,
         saldo:saldo
  	};
@@ -42,12 +43,17 @@ function guardar_usuario()
   var email=getID('email');
   var contrasena=getID('contrasena');
   var saldo=getID('saldo');
-  if(id.length==0)
+  //cargando las variables del progress y el input files
+  var uploader=document.getElementById('uploader');
+  var fileButton=document.querySelector('#fileButton').files[0];
+  Subir_Imagen_Usuario(uploader,fileButton);
+  if(id.length==0 || nombre.length==0 || cedula.length==0 || celular.length==0 || email.length==0 || saldo.length==0)
   {
     alert('Campos Vacios por Rellenar');
   }
   else
   {
+    //transformando a JSON los datos
     var arrayData=arrayJSON(nombre,cedula,celular,email,contrasena,saldo);
     console.log(arrayData);
     var tarea=firebase.database().ref("usuario/"+id);
@@ -89,4 +95,28 @@ function listar_usuarios()
     innerHTML("cargar_usuarios",result);
 
   });
+}
+function Subir_Imagen_Usuario(uploader,fileButton){
+  var nombre=getID('nombre');
+  console.log(nombre);
+  var storageref=storage.ref('imagenes_usuarios/'+fileButton.name);
+  var uploadtask=storageref.put(fileButton);
+  uploadtask.on('state_changed',loadUpload,errUpload,completeUpload);
+  function loadUpload(data)
+  {
+    var percent=(data.bytesTransferred/data.totalBytes)*100;
+    uploader.value=percent;
+  }
+  function errUpload(err)
+  {
+     console.log('error');
+    console.log(err);
+  }
+  function completeUpload(data)
+  {
+    console.log('success');
+    console.log(data);
+    //limpiarcajas("uploader","0");
+  }
+   //uploader.value = uploader.innerHTML = 0;
 }
