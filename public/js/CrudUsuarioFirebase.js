@@ -20,7 +20,7 @@ function limpiarcajas(id,result)
   return document.getElementById(id).value=result;
 }
 //creando el JSON de los datos
-function arrayJSON(nombre,cedula,celular,email,contrasena,saldo,foto)
+function arrayJSON(nombre,cedula,celular,email,contrasena,saldo)
 {
   var data ={
 
@@ -29,7 +29,8 @@ function arrayJSON(nombre,cedula,celular,email,contrasena,saldo,foto)
         celular:celular,
         email:email,
         contrasena:contrasena,
-        saldo:saldo
+        saldo:saldo,
+
  	};
   return data;
 }
@@ -43,10 +44,6 @@ function guardar_usuario()
   var email=getID('email');
   var contrasena=getID('contrasena');
   var saldo=getID('saldo');
-  //cargando las variables del progress y el input files
-  var uploader=document.getElementById('uploader');
-  var fileButton=document.querySelector('#fileButton').files[0];
-  Subir_Imagen_Usuario(uploader,fileButton);
   if(id.length==0 || nombre.length==0 || cedula.length==0 || celular.length==0 || email.length==0 || saldo.length==0)
   {
     alert('Campos Vacios por Rellenar');
@@ -96,27 +93,62 @@ function listar_usuarios()
 
   });
 }
-function Subir_Imagen_Usuario(uploader,fileButton){
-  var nombre=getID('nombre');
-  console.log(nombre);
-  var storageref=storage.ref('imagenes_usuarios/'+fileButton.name);
-  var uploadtask=storageref.put(fileButton);
-  uploadtask.on('state_changed',loadUpload,errUpload,completeUpload);
-  function loadUpload(data)
-  {
-    var percent=(data.bytesTransferred/data.totalBytes)*100;
-    uploader.value=percent;
+
+function subir_imagen_usuario()
+{
+  //cargando las variables del progress y el input files
+  var uploader=document.getElementById('uploader');
+//cargando el archivo de imagen
+var file = document.querySelector('#fileButton').files[0];
+console.log(file);
+
+// Creando el metadata
+var metadata = {
+  contentType: 'image/jpeg'
+};
+//referenciando al storageRef
+var storageRef=storage.ref();
+// Subiendo el Archivo y el metada
+var uploadTask = storageRef.child('imagenes_usuarios/' + file.name).put(file,metadata);
+
+// escuchando los cambios necesarios
+uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  function(snapshot) {
+    // obteniendo el progreso de la barra
+    var uploader = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Subiendo Archivo ' + uploader + '% adelante');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // es para pausar
+        console.log('La subida esta Pausada');
+        break;
+      case firebase.storage.TaskState.RUNNING: // es para correr
+        console.log('Archivo Subiendo');
+        break;
+    }
+  }, function(error) {
+  switch (error.code) {
+    case 'storage/unauthorized':
+      // El usuario no tiene permiso para acceder al objeto
+      break;
+
+    case 'storage/canceled':
+      // El usuario canceló la carga del archivo
+      break;
+    case 'storage/unknown':
+      // Se ha producido un error desconocido, inspeccione error.serverResponse
+      break;
   }
-  function errUpload(err)
-  {
-     console.log('error');
-    console.log(err);
-  }
-  function completeUpload(data)
-  {
-    console.log('success');
-    console.log(data);
-    //limpiarcajas("uploader","0");
-  }
-   //uploader.value = uploader.innerHTML = 0;
+}, function() {
+  // Subida completada con éxito, ahora podemos obtener la URL de descarga
+  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    console.log('Archivo disponible en:', downloadURL);
+  });
+});
+
+}
+function prueba()
+{
+  var j=subir_imagen_usuario();
+  console.log(j);
+
 }
