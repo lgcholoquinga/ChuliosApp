@@ -1,11 +1,11 @@
 //Configurando Firebase
 var config = {
-apiKey: "AIzaSyDnsYm29DuVtm5dMW4TcbNxHKU5myfs9Xw",
-authDomain: "chulios-a0c98.firebaseapp.com",
-databaseURL: "https://chulios-a0c98.firebaseio.com",
-projectId: "chulios-a0c98",
-storageBucket: "chulios-a0c98.appspot.com",
-messagingSenderId: "832011813382"
+  apiKey: "AIzaSyCgQuHTH691gKfcUPUFhE08NTpV9wKpnd4",
+  authDomain: "completo-33db6.firebaseapp.com",
+  databaseURL: "https://completo-33db6.firebaseio.com",
+  projectId: "completo-33db6",
+  storageBucket: "completo-33db6.appspot.com",
+  messagingSenderId: "328156274891"
 };
 firebase.initializeApp(config);
 var storage=firebase.storage();
@@ -37,13 +37,14 @@ function arrayJSON(nombre,cedula,celular,email,contrasena,saldo)
 //creando la funcion para guardar usuario
 function guardar_usuario()
 {
-  var id=firebase.database().ref().child('usuario').push().key
+  var id=firebase.database().ref().child('Usuarios').push().key
   var nombre=getID('nombre');
   var cedula=getID('cedula');
   var celular=getID('celular');
   var email=getID('email');
   var contrasena=getID('contrasena');
   var saldo=getID('saldo');
+
   if(id.length==0 || nombre.length==0 || cedula.length==0 || celular.length==0 || email.length==0 || saldo.length==0)
   {
     alert('Campos Vacios por Rellenar');
@@ -53,7 +54,7 @@ function guardar_usuario()
     //transformando a JSON los datos
     var arrayData=arrayJSON(nombre,cedula,celular,email,contrasena,saldo);
     console.log(arrayData);
-    var tarea=firebase.database().ref("usuario/"+id);
+    var tarea=firebase.database().ref("Usuarios/"+id);
     tarea.set(arrayData);
     alert('Usuario Guardado Exitosamente');
     limpiarcajas("nombre","");
@@ -69,14 +70,14 @@ function innerHTML(id,result)
 {
   return document.getElementById(id).innerHTML+=result;
 }
-function table(nombre,cedula,celular,saldo,email)
+function table(nombre,cedula,celular,saldo,correo)
 {
   return '<tr>'+
     '<td>'+nombre+'</td>'+
     '<td>'+cedula+'</td>'+
     '<td>'+celular+'</td>'+
     '<td>'+saldo+'</td>'+
-    '<td>'+email+'</td>'+
+    '<td>'+correo+'</td>'+
   '</tr>';
 
 }
@@ -84,35 +85,31 @@ function table(nombre,cedula,celular,saldo,email)
 function listar_usuarios()
 {
   //console.log('si entra a esta funcion');
-  var tarea=firebase.database().ref("usuario/");
+  var tarea=firebase.database().ref("Usuarios/");
   tarea.on("child_added",function(data){
     var tareavalue=data.val();
-    var result= table(tareavalue.nombre,tareavalue.cedula,tareavalue.celular,tareavalue.saldo,tareavalue.email);
-    //console.log(result);
+    var result= table(tareavalue.nombre,tareavalue.cedula,tareavalue.celular,tareavalue.saldo,tareavalue.correo);
+    console.log(result);
     innerHTML("cargar_usuarios",result);
-
   });
 }
-
 function subir_imagen_usuario()
 {
   //cargando las variables del progress y el input files
   var uploader=document.getElementById('uploader');
-//cargando el archivo de imagen
-var file = document.querySelector('#fileButton').files[0];
-console.log(file);
-
-// Creando el metadata
-var metadata = {
+ //cargando el archivo de imagen
+  var file = document.querySelector('#fileButton').files[0];
+  console.log(file);
+ // Creando el metadata
+ var metadata = {
   contentType: 'image/jpeg'
-};
-//referenciando al storageRef
-var storageRef=storage.ref();
-// Subiendo el Archivo y el metada
-var uploadTask = storageRef.child('imagenes_usuarios/' + file.name).put(file,metadata);
-
-// escuchando los cambios necesarios
-uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+ };
+ //referenciando al storageRef
+ var storageRef=storage.ref();
+ // Subiendo el Archivo y el metada
+ var uploadTask = storageRef.child('imagenes_usuarios/' + file.name).put(file,metadata);
+ // escuchando los cambios necesarios
+ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
   function(snapshot) {
     // obteniendo el progreso de la barra
     var uploader = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -138,17 +135,16 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
       // Se ha producido un error desconocido, inspeccione error.serverResponse
       break;
   }
-}, function() {
+}, function(downloadURL) {
   // Subida completada con éxito, ahora podemos obtener la URL de descarga
-  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+   uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('Archivo disponible en:', downloadURL);
   });
 });
-
 }
 function prueba()
 {
-  var j=subir_imagen_usuario();
+  var j
+  j=subir_imagen_usuario();
   console.log(j);
-
 }

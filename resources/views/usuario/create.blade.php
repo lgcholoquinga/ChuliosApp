@@ -52,5 +52,5 @@
     </div>
   <script src="{{ asset('js/CrudUsuarioFirebase.js') }}"></script>
   </body>
-</html>
+</html>  
 @endsection

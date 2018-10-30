@@ -10,7 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Complemento Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
