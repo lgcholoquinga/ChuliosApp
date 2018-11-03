@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row"> 
+      <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-success">
             <div class="panel-heading">
@@ -119,7 +119,6 @@
               <input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Ingrese Nombre" required autofocus>
             </div>
           </div>
-
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Cédula:</label>
             <div class="col-sm-10">
@@ -165,12 +164,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="qr">QR Bus:</label>
             <div class="col-sm-10">
-              <?php
-                echo'<img width="100px" src="'.$filename.'"/>';
-
-              ?>
-              <input type="file" class="form-control" id="qr" name="qr">
-              <br>
+              <button type="button" name="button" class="btn btn-primary btn-sm">Generar Qr</button>
             </div>
           </div>
 
