@@ -2,6 +2,7 @@
 namespace ChuliosApp\Http\Controllers;
 use Illuminate\Http\Request;
 use ChuliosApp\Bus;
+use ChuliosApp\Http\Requests\BusRequest;
 use Validator;
 use Session;
 class BusController extends Controller
@@ -9,10 +10,10 @@ class BusController extends Controller
     public function index()
     {
       //$bus = DB::table('bus')->paginate(5);
-      $bus = Bus::paginate(5);
+      $bus = Bus::all();
       return view('bus.index',compact('bus'));
     }
-    public function store(Request $request)
+    public function store(BusRequest $request)
     {
       if($request->hasfile('foto'))
       {
@@ -39,10 +40,11 @@ class BusController extends Controller
            }
          }
       }
-
-
-
+      else {
+        echo "necesitas imagen";
+      }
     }
+
     public function show($id)
     {
         return view('bus/show', ['value' => Bus::findOrFail($id)]);

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Flor del Valle</title>
     <!-- Complemento Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <!-- Styles -->

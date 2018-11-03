@@ -24,7 +24,7 @@
                         <div class="form-group">
                           <label for="cedula" class="control-label col-md-3">Cedula:</label>
                           <div class="col-md-8">
-                          <input type="text" class="form-control" name="cedula" placeholder="Ingrese Cedula" value="{{$bus->CEDULA_PROP}}">
+                          <input type="text" class="form-control" name="cedula" placeholder="Ingrese Cedula" value="{{$bus->CEDULA_PROP}}" readonly>
                         </div>
                         </div>
 
@@ -51,7 +51,7 @@
                         <div class="form-group">
                           <label for="placa" class="control-label col-md-3">Placa Bus:</label>
                           <div class="col-md-8">
-                          <input type="text" class="form-control" name="placa" placeholder="Ingrese Placa Bus" value="{{$bus->PLACA_BUS}}">
+                          <input type="text" class="form-control" name="placa" placeholder="Ingrese Placa Bus" value="{{$bus->PLACA_BUS}}" readonly>
                         </div>
                         </div>
                         <div class="form-group">
