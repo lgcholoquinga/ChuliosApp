@@ -31,7 +31,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {{csrf_field()}}
                     <?php $no=1 ?>
                     @foreach($bus as $bus=> $value)
                       <tr>
@@ -43,49 +42,39 @@
                         <td><center>{{$value->PLACA_BUS}}</center></td>
                         <td><center>{{$value->CAPACIDAD_BUS}}</center></td>
                         <td>
-                          <a href="#" class="btn btn-primary btn-sm"
-                            data-id="{{$value->ID_BUS}}"
-                            data-nombre="{{$value->NOMBRE_PROP}}"
-                            data-cedula="{{$value->CEDULA_PROP}}"
-                            data-celular="{{$value->CELULAR_PROP}}"
-                            data-numero="{{$value->NUMERO_BUS}}"
-                            data-placa="{{$value->PLACA_BUS}}"
-                            data-capacidad="{{$value->CAPACIDAD_BUS}}"
-                            data-foto="{{$value->FOTO_BUS}}"
-                            data-qr="{{$value->CODIGO_QR_BUS}}"
-                            data-toggle="modal"
-                            data-target="#mostrarbus">
-                            Detalle
-                          </a></td>
-
-                        <td><a href="#" class="btn btn-warning btn-sm"
-                            data-id="{{$value->ID_BUS}}"
-                            data-nombre="{{$value->NOMBRE_PROP}}"
-                            data-cedula="{{$value->CEDULA_PROP}}"
-                            data-celular="{{$value->CELULAR_PROP}}"
-                            data-numero="{{$value->NUMERO_BUS}}"
-                            data-placa="{{$value->PLACA_BUS}}"
-                            data-capacidad="{{$value->CAPACIDAD_BUS}}"
-                            data-foto="{{$value->FOTO_BUS}}"
-                            data-qr="{{$value->CODIGO_QR_BUS}}"
-                            data-toggle="modal"
-                            data-target="#editarbus">
+                          <a href="{{url('/bus/'.$value->ID_BUS)}}" class="btn btn-primary btn-sm"> Detalle</a></td>
+                        <td><a href="{{url('/bus/'.$value->ID_BUS.'/edit')}}" class="btn btn-warning btn-sm">
                             Editar
                           </a></td>
-                          <td><a href="#" class="btn btn-danger btn-sm"
-                            data-id="{{$value->ID_BUS}}"
-                            data-nombre="{{$value->NOMBRE_PROP}}"
-                            data-cedula="{{$value->CEDULA_PROP}}"
-                            data-celular="{{$value->CELULAR_PROP}}"
-                            data-numero="{{$value->NUMERO_BUS}}"
-                            data-placa="{{$value->PLACA_BUS}}"
-                            data-capacidad="{{$value->CAPACIDAD_BUS}}"
-                            data-foto="{{$value->FOTO_BUS}}"
-                            data-qr="{{$value->CODIGO_QR_BUS}}"
+                          <td><button type="button" class="btn btn-danger btn-sm"
                             data-toggle="modal"
                             data-target="#eliminarbus">
                             Eliminar
-                          </a></td>
+                          </button>
+                          <div id="eliminarbus" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel"><strong>Eliminar Bus</strong></h4>
+                                        </div>
+                                        <form class="form-horizontal" method="post" action="{{route('bus.destroy',$value->ID_BUS)}}" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                          <center><h1>¿Quieres Eliminar estos datos?</h1></center>
+                                          {{ csrf_field() }}
+                                          {{ method_field('DELETE') }}
+                                          <input type="hidden" name="foto" value="{{$value->FOTO_BUS}}">
+                                        </div>
+                                        <div class="modal-footer">
+                                           <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                           <button type="submit" class="btn btn-primary">Aceptar</button>
+                                        </div>
+                                         </form>
+                                      </div>
+                                    </div>
+                            </div>
                         </td>
                       </tr>
                     @endforeach
@@ -143,7 +132,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Placa Bus:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="placa" name="placa"  placeholder="Ingrese Placa del Bus" required>
+              <input type="text" class="form-control" id="placa" name="placa"  placeholder="Ingrese Placa del Bus" value="{{old('placa')}}" required>
             </div>
           </div>
 
@@ -160,54 +149,10 @@
               <input type="file" class="form-control" id="foto" name="foto">
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="qr">QR Bus:</label>
-            <div class="col-sm-10">
-              <button type="button" name="button" class="btn btn-primary btn-sm">Generar Qr</button>
-            </div>
-          </div>
-
       </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-warning">Guardar Datos</button>
           <button class="btn btn-warning" type="button" data-dismiss="modal">Cancelar</button>
-        </div>
-        </form>
-    </div>
-  </div>
-</div>
-<!-- Ventana Modal Detalle -->
-<div id="mostrarbus" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" name="button" data-dismiss="modal" aria-label="close">
-           <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel"><strong>Flor del Valle </strong></h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" enctype="multipart/form-data">
-          <div class="alert alert-success">
-            <div class="form-group">
-              <div class="col-sm-10">
-                  <img src="/ChuliosApp{{Storage::url($value->FOTO_BUS)}}" width="100px" align="left">
-                  <img src="{{Storage::url($value->CODIGO_QR_BUS)}}" width="100px" align="right">
-
-              </div>
-              <hr>
-            </div>
-            <h4><strong>Nombre Propietario: </strong>{{$value->NOMBRE_PROP}}</h4>
-            <h4><strong>Cedula Propietario: </strong>{{$value->CEDULA_PROP}}</h4>
-            <h4><strong>Celular: </strong>{{$value->CELULAR_PROP}}</h4>
-            <h4><strong>Placa Bus: </strong>{{$value->PLACA_BUS}}</h4>
-            <h4><strong>Capacidad Bus: </strong>{{$value->CAPACIDAD_BUS}}</h4>
-            <h4><strong>Numero Bus: </strong>{{$value->NUMERO_BUS}}</h4>
-          </div>
-      </div>
-        <div class="modal-footer">
-          <button class="btn btn-warning" type="button" data-dismiss="modal">Cerrar</button>
         </div>
         </form>
     </div>

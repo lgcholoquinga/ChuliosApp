@@ -3,44 +3,105 @@ namespace ChuliosApp\Http\Controllers;
 use Illuminate\Http\Request;
 use ChuliosApp\Bus;
 use Validator;
+use Session;
 class BusController extends Controller
 {
     public function index()
     {
-      $bus = Bus::orderBy('ID_BUS', 'desc')->paginate(6);
-      //$bus=Bus::all();
+      //$bus = DB::table('bus')->paginate(5);
+      $bus = Bus::paginate(5);
       return view('bus.index',compact('bus'));
     }
     public function store(Request $request)
     {
-      Bus::create([
-         'NOMBRE_PROP'=>$request['nombre'],
-         'CEDULA_PROP'=>$request['cedula'],
-         'CELULAR_PROP'=>$request['celular'],
-         'PLACA_BUS'=>$request['placa'],
-         'NUMERO_BUS'=>$request['numero'],
-         'CAPACIDAD_BUS'=>$request['capacidad'],
-         'FOTO_BUS'=>$request->file('foto')->store('public/imagen_bus'),
-         'CODIGO_QR_BUS'=>$request->file('qr')->store('public/imagen_qr_bus'),
-       ]);
+      if($request->hasfile('foto'))
+      {
+         if($request->file('foto')->isValid())
+         {
+           $image=$request->foto;
+           $name_image=$request['cedula'].'.png';
+           $dir_upload=public_path('storage/imagen_bus/');
+           if($image->move($dir_upload,$name_image))
+           {
+             $qr='vacio';
+             Bus::create([
+                'NOMBRE_PROP'=>$request['nombre'],
+                'CEDULA_PROP'=>$request['cedula'],
+                'CELULAR_PROP'=>$request['celular'],
+                'PLACA_BUS'=>$request['placa'],
+                'NUMERO_BUS'=>$request['numero'],
+                'CAPACIDAD_BUS'=>$request['capacidad'],
+                'FOTO_BUS'=>$name_image,
+                'CODIGO_QR_BUS'=>$qr,
+              ]);
+              Session::flash('success','Unidad Bus Registrado Exitosamente');
+              return redirect('/bus');
+           }
+         }
+      }
 
-      return redirect('/bus');
+
+
     }
     public function show($id)
     {
-        return view('/bus', ['bus' => Bus::findOrFail($id)]);
+        return view('bus/show', ['value' => Bus::findOrFail($id)]);
     }
     public function edit($id)
     {
-        //
+        return view('bus/edit', ['bus' => Bus::findOrFail($id)]);
     }
     public function update(Request $request, $id)
     {
-        //
+      $foto_old=Bus::find($id);
+      if($request->hasfile('foto'))
+      {
+         $dir_upload=public_path('storage/imagen_bus/');
+          //borrar la imagen antigua
+          if(!empty($foto_old->foto))
+          {
+            unlink($dir_upload.$foto_old->foto);
+          }
+          //upload new image
+          if($request->file('foto')->isValid())
+          {
+            $image=$request->foto;
+            $name_image=$request['cedula'].'.png';
+            $dir_upload=public_path('storage/imagen_bus/');
+            if($image->move($dir_upload,$name_image))
+            {
+              $qr="vacio";
+              Bus::where('ID_BUS',$id)->update([
+                'NOMBRE_PROP'=>$request['nombre'],
+                'CEDULA_PROP'=>$request['cedula'],
+                'CELULAR_PROP'=>$request['celular'],
+                'PLACA_BUS'=>$request['placa'],
+                'NUMERO_BUS'=>$request['numero'],
+                'CAPACIDAD_BUS'=>$request['capacidad'],
+                'FOTO_BUS'=>$name_image,
+                'CODIGO_QR_BUS'=>$qr
+              ]);
+              Session::flash('success','Datos Actualizados Exitosamente');
+              return redirect('/bus');
+            }
+          }
+      }
+      else
+      {
+        echo "nO Actualizado";
+      }
+
     }
 
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
-    }
+        //dd($request->foto);
+        $bus = Bus::findOrFail($id);
+        $dir_upload=public_path('storage/imagen_bus/');
+        //dd($dir_upload.$request->foto);
+        unlink($dir_upload.$request->foto);
+        $bus->delete();
+        Session::flash('error','Datos Eliminados Exitosamente');
+        return redirect('/bus');
+  }
 }
