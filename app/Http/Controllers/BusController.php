@@ -28,7 +28,7 @@ class BusController extends Controller
     }
     public function show($id)
     {
-        //
+        return view('/bus', ['bus' => Bus::findOrFail($id)]);
     }
     public function edit($id)
     {

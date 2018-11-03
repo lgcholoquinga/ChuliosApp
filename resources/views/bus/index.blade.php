@@ -5,11 +5,10 @@
   <head>
     <meta charset="utf-8">
     <title>Listado Buses</title>
-
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row"> 
         <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-success">
             <div class="panel-heading">
@@ -53,8 +52,9 @@
                             data-placa="{{$value->PLACA_BUS}}"
                             data-capacidad="{{$value->CAPACIDAD_BUS}}"
                             data-foto="{{$value->FOTO_BUS}}"
+                            data-qr="{{$value->CODIGO_QR_BUS}}"
                             data-toggle="modal"
-                            data-target="#mostarbus">
+                            data-target="#mostrarbus">
                             Detalle
                           </a></td>
 
@@ -67,6 +67,7 @@
                             data-placa="{{$value->PLACA_BUS}}"
                             data-capacidad="{{$value->CAPACIDAD_BUS}}"
                             data-foto="{{$value->FOTO_BUS}}"
+                            data-qr="{{$value->CODIGO_QR_BUS}}"
                             data-toggle="modal"
                             data-target="#editarbus">
                             Editar
@@ -80,11 +81,11 @@
                             data-placa="{{$value->PLACA_BUS}}"
                             data-capacidad="{{$value->CAPACIDAD_BUS}}"
                             data-foto="{{$value->FOTO_BUS}}"
+                            data-qr="{{$value->CODIGO_QR_BUS}}"
                             data-toggle="modal"
                             data-target="#eliminarbus">
                             Eliminar
                           </a></td>
-
                         </td>
                       </tr>
                     @endforeach
@@ -92,11 +93,8 @@
               </table>
             </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
   </body>
 </html>
@@ -118,42 +116,42 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nombre" name="nombre" value="{{old('nombre')}}" placeholder="Ingrese Nombre" required autofocus>
+              <input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Ingrese Nombre" required autofocus>
             </div>
           </div>
 
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Cédula:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="cedula" name="cedula" value="{{old('cedula')}}" placeholder="Ingrese una Cédula Válida" required>
+              <input type="text" class="form-control" id="cedula" name="cedula"  placeholder="Ingrese una Cédula Válida" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Celular:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="celular" name="celular" value="{{old('celular')}}" placeholder="Ingrese una Célular Válido" required>
+              <input type="text" class="form-control" id="celular" name="celular" placeholder="Ingrese una Célular Válido" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Numero Bus:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="numero" name="numero" value="{{old('numero')}}" placeholder="Ingrese Capacidad del Bus" required>
+              <input type="text" class="form-control" id="numero" name="numero"  placeholder="Ingrese Capacidad del Bus" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Placa Bus:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="placa" name="placa" value="{{old('placa')}}" placeholder="Ingrese Placa del Bus" required>
+              <input type="text" class="form-control" id="placa" name="placa"  placeholder="Ingrese Placa del Bus" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="control-label col-sm-2" for="nombre">Capacidad:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="capacidad" name="capacidad" value="{{old('capacidad')}}" placeholder="Ingrese Capacidad del Bus" required>
+              <input type="text" class="form-control" id="capacidad" name="capacidad" placeholder="Ingrese Capacidad del Bus" required>
             </div>
           </div>
 
@@ -167,7 +165,12 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="qr">QR Bus:</label>
             <div class="col-sm-10">
+              <?php
+                echo'<img width="100px" src="'.$filename.'"/>';
+
+              ?>
               <input type="file" class="form-control" id="qr" name="qr">
+              <br>
             </div>
           </div>
 
@@ -175,6 +178,42 @@
         <div class="modal-footer">
           <button type="submit" class="btn btn-warning">Guardar Datos</button>
           <button class="btn btn-warning" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Ventana Modal Detalle -->
+<div id="mostrarbus" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" name="button" data-dismiss="modal" aria-label="close">
+           <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"><strong>Flor del Valle </strong></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" enctype="multipart/form-data">
+          <div class="alert alert-success">
+            <div class="form-group">
+              <div class="col-sm-10">
+                  <img src="/ChuliosApp{{Storage::url($value->FOTO_BUS)}}" width="100px" align="left">
+                  <img src="{{Storage::url($value->CODIGO_QR_BUS)}}" width="100px" align="right">
+
+              </div>
+              <hr>
+            </div>
+            <h4><strong>Nombre Propietario: </strong>{{$value->NOMBRE_PROP}}</h4>
+            <h4><strong>Cedula Propietario: </strong>{{$value->CEDULA_PROP}}</h4>
+            <h4><strong>Celular: </strong>{{$value->CELULAR_PROP}}</h4>
+            <h4><strong>Placa Bus: </strong>{{$value->PLACA_BUS}}</h4>
+            <h4><strong>Capacidad Bus: </strong>{{$value->CAPACIDAD_BUS}}</h4>
+            <h4><strong>Numero Bus: </strong>{{$value->NUMERO_BUS}}</h4>
+          </div>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" type="button" data-dismiss="modal">Cerrar</button>
         </div>
         </form>
     </div>
