@@ -35,4 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'firebase' => [
+        'api_key' => 'AIzaSyDY2jMtT6qOrwZ2EEEKjRmgyhlhdxqsC3A', // Only used for JS integration
+        'auth_domain' => 'prueba-chulios.firebaseapp.com', // Only used for JS integration
+        'database_url' => 'https://prueba-chulios.firebaseio.com',
+        'storage_bucket' => 'prueba-chulios.appspot.com', // Only used for JS integration
+    ],
+
 ];

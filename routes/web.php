@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/chulios', 'ChulioController@index');
+
+Route::get('/recarga', 'RecargaController@index');
