@@ -25,15 +25,15 @@
                             <hr>
                              <center><h3><strong>Datos Personales</h3></center>
                              <hr>
-                             <h3><strong>Nombre Propietario:</strong>{{$value->NOMBRE_PROP}}</h3>
-                             <h3><strong>Cédula:</strong>{{$value->CEDULA_PROP}}</h3>
-                             <h3><strong>Celular:</strong>{{$value->CELULAR_PROP}}</h3>
+                             <h4><strong>Nombre Propietario:</strong>{{$value->NOMBRE_PROP}}</h4>
+                             <h4><strong>Cédula:</strong>{{$value->CEDULA_PROP}}</h4>
+                             <h4><strong>Celular:</strong>{{$value->CELULAR_PROP}}</h44
                              <hr>
                              <center><h3><strong>Datos Bus</h3></center>
                                <hr>
-                             <h3><strong>Número Bus:</strong>{{$value->NUMERO_BUS}}</h3>
-                             <h3><strong>Capacidad Bus:</strong>{{$value->CAPACIDAD_BUS}}</h3>
-                             <h3><strong>Placa Bus:</strong>{{$value->PLACA_BUS}}</h3>
+                             <h4><strong>Número Bus:</strong>{{$value->NUMERO_BUS}}</h4>
+                             <h4><strong>Capacidad Bus:</strong>{{$value->CAPACIDAD_BUS}}</h4>
+                             <h4><strong>Placa Bus:</strong>{{$value->PLACA_BUS}}</h4>
                           </div>
                          <hr>
                       </form>
@@ -49,7 +49,9 @@
                        </div>
                        <div class="panel-body">
                           <center><h3>Foto Bus:</h3></center>
-                          <img  src="{{url('/storage/imagen_bus/'.$value->FOTO_BUS)}}">
+                          <center>
+                          <img width="200px"  src="{{url('/storage/imagen_bus/'.$value->FOTO_BUS)}}">
+                        </center>
                        </div>
                        <div class="panel-footer">
                        </div>

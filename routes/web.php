@@ -9,3 +9,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('bus','BusController');
+
+Route::get("/createqr",'BusController@createqr')->name('bus.createqr');

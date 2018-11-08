@@ -90,7 +90,18 @@ class BusController extends Controller
       }
       else
       {
-        echo "nO Actualizado";
+        $qr="vacio";
+        Bus::where('ID_BUS',$id)->update([
+          'NOMBRE_PROP'=>$request['nombre'],
+          'CEDULA_PROP'=>$request['cedula'],
+          'CELULAR_PROP'=>$request['celular'],
+          'PLACA_BUS'=>$request['placa'],
+          'NUMERO_BUS'=>$request['numero'],
+          'CAPACIDAD_BUS'=>$request['capacidad'],
+          'CODIGO_QR_BUS'=>$qr
+        ]);
+        Session::flash('success','Datos Actualizados Exitosamente');
+        return redirect('/bus');
       }
 
     }
@@ -105,5 +116,10 @@ class BusController extends Controller
         $bus->delete();
         Session::flash('error','Datos Eliminados Exitosamente');
         return redirect('/bus');
+  }
+  public function createqr()
+  {
+     $bus = Bus::all();
+      return view('bus.createqr',compact('bus'));
   }
 }

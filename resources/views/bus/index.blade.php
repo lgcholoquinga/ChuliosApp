@@ -17,6 +17,7 @@
             <div class="panel-body">
               <a href="#" class="btn btn-success">Panel Administración</a>
               <a href="#" class="btn btn-success" data-toggle="modal" data-target="#crearbus">Agregar Bus</a>
+              <a href="{{url('/createqr')}}" class="btn btn-success">Generar Qr Buses</a>
               <hr>
               <div class="table table-responsive">
                 <table class="table table-hover table-striped">
@@ -47,9 +48,6 @@
                           <td><a href="{{url('/bus/'.$value->ID_BUS.'/edit')}}" class="btn btn-warning btn-sm">
                               Editar
                             </a></td>
-                            <td>
-                                <a href="{{url('/bus/'.$value->ID_BUS)}}" class="btn btn-warning btn-sm"> Generar QR Bus</a></td>
-                            </td>
                             <td><button type="button" class="btn btn-danger btn-sm"
                               data-toggle="modal"
                               data-target="#eliminarbus">
@@ -85,7 +83,6 @@
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
         </div>

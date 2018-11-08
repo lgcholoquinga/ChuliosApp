@@ -1,6 +1,5 @@
 @extends("layouts.app")
 @section('content')
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -8,7 +7,7 @@
   </head>
   <body onload="listar_usuarios()">
     <div class="container">
-      <div class="row">
+      <div class="row">   
         <div class="col-md-4">
           <div class="card card-success">
             <div class="card card-header">
@@ -23,7 +22,7 @@
                <input id="nombre" type="text" name="nombre" value="nombre" placeholder="Ingrese  Nombre">
                <input id="cedula" type="text" name="cedula" value="cedula" placeholder="Ingrese  Cedula">
                <input id="celular" type="text" name="celular" value="celular" placeholder="Ingrese Celular">
-               <input id="email" type="email" name="email" value="email" placeholder="Ingrese  E-mail">
+               <input id="correo" type="email" name="email" value="email" placeholder="Ingrese  E-mail">
                <progress value="0" max="100" id="uploader">0%</progress>
                <input id="fileButton" value="upload" type="file" accept="image/*">
                <input id="contrasena" type="password" name="contrasena" value="contrasena" placeholder="Ingrese Contraseña">
@@ -52,5 +51,5 @@
     </div>
   <script src="{{ asset('js/CrudUsuarioFirebase.js') }}"></script>
   </body>
-</html>  
+</html>
 @endsection

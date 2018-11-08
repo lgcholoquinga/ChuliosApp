@@ -1,7 +1,6 @@
 <?php
 namespace ChuliosApp\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
-
 class BusRequest extends FormRequest
 {
     public function authorize()
@@ -17,8 +16,9 @@ class BusRequest extends FormRequest
             'placa'=>'required|min:7|max:7|unique:bus,PLACA_BUS',
             'capacidad'=>'required',
             'numero'=>'required',
-            'foto'=>'required|image'
-        ];
+            'foto'=>'required|image',
+
+        ]; 
     }
     public function messages()
     {
@@ -27,6 +27,7 @@ class BusRequest extends FormRequest
         'cedula.max'=>'La Cédula contiene 10 dígitos.',
         'cedula.required'=>'La Cédula debe ser obligatorio',
         'cedula.unique'=>'Cédula ya ha existe en nuestros registros',
+
 
         'nombre.required'=>'El campo Nombre Propietario es obligatorio',
 

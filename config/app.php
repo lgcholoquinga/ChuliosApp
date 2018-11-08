@@ -176,6 +176,7 @@ return [
         // ChuliosApp\Providers\BroadcastServiceProvider::class,
         ChuliosApp\Providers\EventServiceProvider::class,
         ChuliosApp\Providers\RouteServiceProvider::class,
+      
 
     ],
 

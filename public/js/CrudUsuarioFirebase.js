@@ -1,11 +1,11 @@
 //Configurando Firebase
 var config = {
-  apiKey: "AIzaSyCgQuHTH691gKfcUPUFhE08NTpV9wKpnd4",
-  authDomain: "completo-33db6.firebaseapp.com",
-  databaseURL: "https://completo-33db6.firebaseio.com",
-  projectId: "completo-33db6",
-  storageBucket: "completo-33db6.appspot.com",
-  messagingSenderId: "328156274891"
+  apiKey: "AIzaSyDnsYm29DuVtm5dMW4TcbNxHKU5myfs9Xw",
+    authDomain: "chulios-a0c98.firebaseapp.com",
+    databaseURL: "https://chulios-a0c98.firebaseio.com",
+    projectId: "chulios-a0c98",
+    storageBucket: "chulios-a0c98.appspot.com",
+    messagingSenderId: "832011813382"
 };
 firebase.initializeApp(config);
 var storage=firebase.storage();
@@ -27,7 +27,7 @@ function arrayJSON(nombre,cedula,celular,email,contrasena,saldo)
         nombre:nombre,
         cedula:cedula,
         celular:celular,
-        email:email,
+        correo:email,
         contrasena:contrasena,
         saldo:saldo,
 
@@ -41,11 +41,11 @@ function guardar_usuario()
   var nombre=getID('nombre');
   var cedula=getID('cedula');
   var celular=getID('celular');
-  var email=getID('email');
+  var email=getID('correo');
   var contrasena=getID('contrasena');
   var saldo=getID('saldo');
 
-  if(id.length==0 || nombre.length==0 || cedula.length==0 || celular.length==0 || email.length==0 || saldo.length==0)
+  if(id.length==0 || nombre.length==0 || cedula.length==0 || celular.length==0 || correo.length==0 || saldo.length==0)
   {
     alert('Campos Vacios por Rellenar');
   }
@@ -54,7 +54,7 @@ function guardar_usuario()
     //transformando a JSON los datos
     var arrayData=arrayJSON(nombre,cedula,celular,email,contrasena,saldo);
     console.log(arrayData);
-    var tarea=firebase.database().ref("Usuarios/"+id);
+    var tarea=firebase.database().ref("usuario/"+id);
     tarea.set(arrayData);
     alert('Usuario Guardado Exitosamente');
     limpiarcajas("nombre","");
@@ -62,7 +62,7 @@ function guardar_usuario()
     limpiarcajas("celular","");
     limpiarcajas("contrasena","");
     limpiarcajas("saldo","");
-    limpiarcajas("email","");
+    limpiarcajas("correo","");
   }
 }
 //inner html
@@ -85,11 +85,11 @@ function table(nombre,cedula,celular,saldo,correo)
 function listar_usuarios()
 {
   //console.log('si entra a esta funcion');
-  var tarea=firebase.database().ref("Usuarios/");
+  var tarea=firebase.database().ref("usuario/");
   tarea.on("child_added",function(data){
     var tareavalue=data.val();
     var result= table(tareavalue.nombre,tareavalue.cedula,tareavalue.celular,tareavalue.saldo,tareavalue.correo);
-    console.log(result);
+    //console.log(result);
     innerHTML("cargar_usuarios",result);
   });
 }
@@ -139,6 +139,7 @@ function subir_imagen_usuario()
   // Subida completada con éxito, ahora podemos obtener la URL de descarga
    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('Archivo disponible en:', downloadURL);
+
   });
 });
 }
