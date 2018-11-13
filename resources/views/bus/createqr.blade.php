@@ -1,37 +1,56 @@
 @extends('layouts.app')
 @section('content')
+<!-- PHP crear qr bus -->
 <?php
   $dir='storage/qr_bus/';
   $filename='';
   if(!file_exists($dir))
     mkdir($dir);
-    if(isset($_GET['qrbutton']))
+    if(isset($_GET['w1']))
     {
-      $filename=$dir.$_GET['placabus'].'.png';
+      $filename=$dir.$_GET['w1'].'.png';
       $tamanio=15;
       $level='H';
       $frameSize=5;
-      $contenido=$_GET['placabus'];
+      $contenido=$_GET['w1'];
       QRcode::png($contenido,$filename,$level,$tamanio,$frameSize);
     }
- ?>
-<h2>Placas de Buses fLOR del valle por generar</h2>
-<form  method="get">
-           {{csrf_field()}}
-           <div class="form-group">
-           <label class="control-label col-sm-2" for="nombre">Placa Bus:</label>
-           <div class="col-sm-10">
-             <select class="placabus" name="placabus">
-                 <option value="">Selecciona una Placa Bus</option>
+?>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h2><center>Generar Codigo QR Buses </strong>"Cooperativa Flor del Valle"</strong></center></h2>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-success">Panel de Administración</a>
+          <a href="{{url('/bus')}}" class="btn btn-success">Listado de Buses</a>
+          <hr>
+          <div class="alert alert-danger">
+            <center><h4>Selecciona una de las Placas del Bus para poder generar un QR </h4></center>
+          </div>
+          <select  name="placabus" id="placabus" onchange="obtenerplaca();">
+                 <option value="selec" selected>Selecciona una Placa Bus</option>
                  @foreach($bus as $bus)
                      <option value="{{$bus->PLACA_BUS}}" >{{$bus->NOMBRE_PROP}}</option>
                  @endforeach
-             </select>
-              <br>
-              <button type="submit" name="qrbutton" class="btn btn-primary btn-sm">Generar Qr Bus</button>
-              <hr>
-           </div>
-           </div>
-</form>
-<img src="<?php echo $filename; ?>">
+          </select>
+          <hr>
+          <img width="100px" src="<?php echo $filename; ?>">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Cragando el script para generar el qr bs -->
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script>
+    console.log('Abriendo Javascript');
+    function obtenerplaca()
+    {
+      var dato=document.getElementById("placabus").value;
+      location.href="?w1=" + dato;
+    }
+</script>
 @endsection

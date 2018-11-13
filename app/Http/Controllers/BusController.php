@@ -5,6 +5,7 @@ use ChuliosApp\Bus;
 use ChuliosApp\Http\Requests\BusRequest;
 use Validator;
 use Session;
+use DB;
 class BusController extends Controller
 {
     public function index()
@@ -15,6 +16,7 @@ class BusController extends Controller
     }
     public function store(BusRequest $request)
     {
+      //dd($request->all());
       if($request->hasfile('foto'))
       {
          if($request->file('foto')->isValid())
@@ -119,7 +121,8 @@ class BusController extends Controller
   }
   public function createqr()
   {
-     $bus = Bus::all();
+     
+     $bus = DB::table('bus')->where('CODIGO_QR_BUS', '=', 'vacio')->get();
       return view('bus.createqr',compact('bus'));
   }
 }

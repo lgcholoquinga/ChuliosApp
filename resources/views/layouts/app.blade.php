@@ -14,7 +14,18 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
-
+    <style>
+      
+         select{
+            border:1px solid #777;
+            padding:.8rem 3rem .8rem .5rem;
+            border-radius:3px;
+            color:#565656;
+        }
+        .ocultado{
+        display: none;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

@@ -20,7 +20,6 @@
                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre" value="{{$bus->NOMBRE_PROP}}">
                          </div>
                         </div>
-
                         <div class="form-group">
                           <label for="cedula" class="control-label col-md-3">Cedula:</label>
                           <div class="col-md-8">
@@ -58,6 +57,7 @@
                           <label class="control-label col-md-3 " for="foto">Foto:</label>
                             <div class="col-md-8">
                               <input type="file" class="form-control" name="foto">
+                              <br>
                               <img width="150px" src="{{url('/storage/imagen_bus/'.$bus->FOTO_BUS)}}">
                             </div>
                         </div>
