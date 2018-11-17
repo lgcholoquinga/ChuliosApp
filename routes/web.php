@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/chulios', 'ChulioController@index');
+//Route::get('/Chulio', 'ChulioController@index');
+Auth::routes();
+
+Route::resource('/Chulio', 'ChulioController');
+
+//Route::get('/Chulio/create','ChulioController@create');
 
 Route::get('/recarga', 'RecargaController@index');
