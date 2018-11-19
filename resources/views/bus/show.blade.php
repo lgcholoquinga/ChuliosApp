@@ -50,8 +50,14 @@
                        <div class="panel-body">
                           <center><h3>Foto Bus:</h3></center>
                           <center>
-                          <img width="200px"  src="{{url('/storage/imagen_bus/'.$value->FOTO_BUS)}}">
-                        </center>
+                          <img width="300px"  src="{{url('/storage/imagen_bus/'.$value->FOTO_BUS)}}">
+                          </center>
+                          <hr>
+                          <center><h3>QR Bus:</h3></center>
+                          <center>
+                          <img width="300px"  src="{{url('/storage/qr_bus/'.$value->CODIGO_QR_BUS)}}">
+                          </center>
+
                        </div>
                        <div class="panel-footer">
                        </div>

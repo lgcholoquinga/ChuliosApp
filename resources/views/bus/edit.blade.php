@@ -58,7 +58,9 @@
                             <div class="col-md-8">
                               <input type="file" class="form-control" name="foto">
                               <br>
+                              <center>
                               <img width="150px" src="{{url('/storage/imagen_bus/'.$bus->FOTO_BUS)}}">
+                              </center>
                             </div>
                         </div>
                        <div class="form-group">

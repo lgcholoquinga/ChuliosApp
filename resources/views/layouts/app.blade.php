@@ -25,7 +25,13 @@
         .ocultado{
         display: none;
         }
-    </style>
+       #form{
+         border: 1px solid #1E88E5;
+         margin: 20px;
+         padding: 20px;
+       }
+
+</style>
 </head>
 <body>
     <div id="app">
