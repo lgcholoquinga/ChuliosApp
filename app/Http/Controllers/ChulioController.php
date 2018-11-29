@@ -24,6 +24,7 @@ class ChulioController extends Controller
         {
             $chulios=DB::table('chulio')->get();
             $buses=Bus::all();
+            $val="";
             return view('Chulio.index',["chulios"=>$chulios])->with(compact('buses'));
         }
     }
@@ -70,13 +71,13 @@ class ChulioController extends Controller
             'BUS_id_bus'=>$request->get('BUS_id_bus')
         ]);
         Session::flash('success','Datos Actualizados Exitosamente');
-        return Redirect::to('\Chulio');
+        return Redirect::to('Chulio');
     }
 
     public function destroy($id){
         $chulio=Chulio::findOrFail($id);
         $chulio->delete();
         Session::flash('error','Datos Eliminados Exitosamente');
-        return redirect('\Chulio');
+        return redirect('Chulio');
     }
 }

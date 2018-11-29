@@ -19,7 +19,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/Chulio', 'ChulioController');
+Route::resource('/Recargas', 'RecargaController');
 
 //Route::get('/Chulio/create','ChulioController@create');
 
-Route::get('/recarga', 'RecargaController@index');
+//Route::get('/recarga', 'RecargaController@index');

@@ -39,7 +39,7 @@ class ChulioFormRequest extends FormRequest
         return[
             'usuario.required'=>'El campo es obligatorio',
             'nombre.required'=>'El campo Nombre Chulio es obligatorio',
-            'cedula.min'=>'La Cédula contiene 10 dígitos.',
+            'cedula.min'=>'Cédula Incorrecta, La Cédula contiene 10 dígitos.',
             'cedula.max'=>'La Cédula contiene 10 dígitos.',
             'cedula.required'=>'La Cédula debe ser obligatorio',
             'cedula.unique'=>'Cédula ya ha existe en nuestros registros',

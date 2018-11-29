@@ -85,4 +85,13 @@
     </div>
     </form>
 </div>
+<script>
+    var select = document.getElementById('BUS_id_bus');
+    select.addEventListener('change',
+        function(){
+            var selectedOption = this.options[select.selectedIndex];
+            $("#usuario").val(selectedOption.text);
+            console.log(selectedOption.value + ': ' + selectedOption.text);
+        });
+</script>
 @endsection

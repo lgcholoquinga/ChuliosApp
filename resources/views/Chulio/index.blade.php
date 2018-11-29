@@ -205,6 +205,54 @@
         return patron.test(tecla_final);
     }
 </script>
+<!--<script>
+    function submitChulioForm(){
+        var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+        var usu = $('#usuario').val();
+        var name = $('#inputName').val();
+        var email = $('#inputEmail').val();
+        var message = $('#inputMessage').val();
+        if(name.trim() == '' ){
+            alert('Please enter your name.');
+            $('#inputName').focus();
+            return false;
+        }else if(email.trim() == '' ){
+            alert('Please enter your email.');
+            $('#inputEmail').focus();
+            return false;
+        }else if(email.trim() != '' && !reg.test(email)){
+            alert('Please enter valid email.');
+            $('#inputEmail').focus();
+            return false;
+        }else if(message.trim() == '' ){
+            alert('Please enter your message.');
+            $('#inputMessage').focus();
+            return false;
+        }else{
+            $.ajax({
+                type:'POST',
+                url:'submit_form.php',
+                data:'contactFrmSubmit=1&name='+name+'&email='+email+'&message='+message,
+                beforeSend: function () {
+                    $('.submitBtn').attr("disabled","disabled");
+                    $('.modal-body').css('opacity', '.5');
+                },
+                success:function(msg){
+                    if(msg == 'ok'){
+                        $('#inputName').val('');
+                        $('#inputEmail').val('');
+                        $('#inputMessage').val('');
+                        $('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we'll get back to you soon.</p>');
+                    }else{
+                        $('.statusMsg').html('<span style="color:red;">Some problem occurred, please try again.</span>');
+                    }
+                    $('.submitBtn').removeAttr("disabled");
+                    $('.modal-body').css('opacity', '');
+                }
+            });
+        }
+    }
+</script>-->
 </body>
 </html>
 @endsection
@@ -225,7 +273,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2 {{$errors->has('usuario') ? 'has-error' : ''}}" for="usuario">Usuario:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="usuario" name="usuario"  placeholder="Ingrese Usuario" value="{{old('usuario')}}" required autofocus>
+                            <input type="text" class="form-control" id="usuario" name="usuario"  placeholder="Usuario" value="{{old('usuario')}}" readonly>
                             @if($errors->has('usuario'))
                             <span class="help-block"><strong>{{ $errors->first('usuario') }}</strong></span>
                             @endif
@@ -273,7 +321,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="contrasenia">Contraseña:</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contrasenia" name="contrasenia" placeholder="Ingrese Contraseña" value="{{old('contrasenia')}}" required>
+                            <input type="password" class="form-control" id="contrasenia" name="contrasenia" placeholder="Contraseña" value="{{old('contrasenia')}}" readonly>
                             @if($errors->has('contrasenia'))
                             <span class="help-block"><strong>{{ $errors->first('contrasenia') }}</strong></span>
                             @endif
@@ -303,3 +351,18 @@
         </div>
     </div>
 </div>
+<script>
+    var select = document.getElementById('BUS_id_bus');
+    //{{url('/Chulio/'.$value->idchulio)}}
+    select.addEventListener('change',
+        function(){
+            var selectedOption = this.options[select.selectedIndex];
+            if(selectedOption.text != "--Eliga Bus--"){
+                $("#usuario").val(selectedOption.text);
+            }
+            else{
+                $("#usuario").val("");
+            }
+            console.log(selectedOption.value + ': ' + selectedOption.text);
+        });
+</script>
